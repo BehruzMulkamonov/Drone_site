@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url "create_origin" %}" class="btn btn-success ">Add</a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">
+                Name
+                <a href="{% url 'origin' %}?order=desc"><i class="bi bi-arrow-down"></i></a>
+                <a href="{% url 'origin' %}?order=asc"><i class="bi bi-arrow-up"></i></a>
+
+
+            </th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if origin_filter %}
+            {% for org in origin_filter %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ org.name }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for org in Country_origins %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'detail_origin' org.id %}">{{ org.name }}</a></td>
+                    <td>
+                        <a href="{% url 'update_origin' org.id %}" class="btn btn-info">Update</a>
+                        <a href="{% url "delete_origin" org.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+
+        <input type="text" class="">
+        </tbody>
+    </table>
+
+{% endblock %}

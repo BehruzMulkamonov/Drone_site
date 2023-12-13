@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url "create_sensortype" %}" class="btn btn-success ">Add</a>
+    <h1>Sensor</h1>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">
+                Name
+                <a href="{% url 'sensortype' %}?order=desc"><i class="bi bi-arrow-down"></i></a>
+                <a href="{% url 'sensortype' %}?order=asc"><i class="bi bi-arrow-up"></i></a>
+
+
+            </th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if sensortype_filter %}
+            {% for sensor in sensortype_filter %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ sensor.name }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for sensor in sensortype %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'detail_sensortype' sensor.id %}">{{ sensor.name }}</a></td>
+                    <td>
+                        <a href="{% url 'update_sensortype' sensor.id %}" class="btn btn-info">Update</a>
+                        <a href="{% url "delete_sensortype" sensor.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+
+        <input type="text" class="">
+        </tbody>
+    </table>
+
+{% endblock %}

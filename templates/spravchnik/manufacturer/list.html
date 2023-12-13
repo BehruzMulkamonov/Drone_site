@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url 'create_manufacturer' %}" class="btn btn-success ">Add</a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">
+                Name
+                <a href="{% url 'manufacturer' %}?order=desc"><i class="bi bi-arrow-down"></i></a>
+                <a href="{% url 'manufacturer' %}?order=asc"><i class="bi bi-arrow-up"></i></a>
+
+
+            </th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if manufacturer_filter %}
+            {% for mnfc in manufacturer_filter %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ mnfc.name }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for mnfc in manufacturers %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'detail_manufacturer' mnfc.id %}">{{ mnfc.name }}</a></td>
+                    <td>
+                        <a href="{% url 'update_manufacturer' mnfc.id %}" class="btn btn-info">Update</a> 
+                        <a href="{% url 'delete_manufacturer' mnfc.id %}" class="btn btn-danger">Delete</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+
+        <input type="text" class="">
+        </tbody>
+    </table>
+
+{% endblock %}

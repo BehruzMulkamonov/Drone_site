@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url 'create_district' %}" class="btn btn-success ">Add</a>
+    <a href="{% url 'export_csv' %}" class="btn btn-success ">Export</a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">    
+                Name
+                <a href="{% url 'district' %}?order=desc"><i class="bi bi-arrow-down"></i></a>
+                <a href="{% url 'district' %}?order=asc"><i class="bi bi-arrow-up"></i></a>
+
+
+            </th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if districts_filter %}
+            {% for dsc in districts_filter %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ dsc.name }}</td>
+                    <td>{{ dsc.district_code }}</td>
+                    <td>{{ dsc.region }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for dsc in districts %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'detail_district' dsc.id %}">{{ dsc.name }}</a></td>
+                    <td><a>{{ dsc.district_code }}</a></td>
+                    <td><a>{{ dsc.region }}</a></td>
+                    <td>
+                        <a href="{% url 'update_district' dsc.id %}" class="btn btn-info">Update</a> 
+                        <a href="{% url 'delete_district' dsc.id %}" class="btn btn-danger">Delete</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+
+        <input type="text" class="">
+        </tbody>
+    </table>
+
+{% endblock %}

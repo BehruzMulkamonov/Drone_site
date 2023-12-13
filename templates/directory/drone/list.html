@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url "create_drone" %}" class="btn btn-success ">Add</a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">
+                Name
+                <a href="{% url 'drone' %}?order=desc"><i class="bi bi-arrow-down"></i></a>
+                <a href="{% url 'drone' %}?order=asc"><i class="bi bi-arrow-up"></i></a>
+
+
+            </th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if drone_filter %}
+            {% for dr in drone_filter %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ dr.name }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for dr in drone %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'detail_drone' dr.id %}">{{ dr.name }}</a></td>
+                    <td>
+                        <a href="{% url 'update_drone' dr.id %}" class="btn btn-info">Update</a>
+                        <a href="{% url "delete_drone" dr.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+
+        <input type="text" class="">
+        </tbody>
+    </table>
+
+{% endblock %}

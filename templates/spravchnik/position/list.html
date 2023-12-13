@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url 'create_position' %}" class="btn btn-success ">Add</a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">
+                Name
+                <a href="{% url 'position' %}?order=desc"><i class="bi bi-arrow-down"></i></a>
+                <a href="{% url 'position' %}?order=asc"><i class="bi bi-arrow-up"></i></a>
+
+
+            </th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if position_filter %}
+            {% for pst in position_filter %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td> <a href="{% url 'detail_position' pst.id %}">  {{ pst.name }} </a></td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for position in positions %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'detail_position' position.id %}">{{ position.name }}</a></td>
+                    <td>
+                        <a href="{% url 'update_position' position.id %}" class="btn btn-info">Update</a> 
+                        <a href="{% url 'delete_position' position.id %}" class="btn btn-danger">Delete</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+
+        <input type="text" class="">
+        </tbody>
+    </table>
+
+{% endblock %}

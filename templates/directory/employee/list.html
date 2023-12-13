@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+
+    <a href="{% url "create_employee" %}" class="btn btn-success ">Add</a>
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+
+            <th scope="col">
+                Name
+                <a href="{% url 'employee' %}?order=desc"><i class="bi bi-arrow-down"></i></a>
+                <a href="{% url 'employee' %}?order=asc"><i class="bi bi-arrow-up"></i></a>
+
+
+            </th>
+            <th scope="col">Operation</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        {% if employee_filter %}
+            {% for emp in employee_filter %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>{{ emp.first_name }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            {% for emp in employee %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{% url 'detail_employee' emp.id %}">{{ emp.first_name }}</a></td>
+                    <td>
+                        <a href="{% url 'update_employee' emp.id %}" class="btn btn-info">Update</a>
+                        <a href="{% url "delete_employee" emp.id %}" class="btn btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+
+        {% endif %}
+
+        <input type="text" class="">
+        </tbody>
+    </table>
+
+{% endblock %}
